@@ -1,0 +1,210 @@
+{
+  "packages": [
+    {
+      "packagingVersion": "3.0",
+      "upgradesFrom": [
+        "*"
+      ],
+      "downgradesTo": [
+        "*"
+      ],
+      "minDcosReleaseVersion": "1.9",
+      "name": "nifi",
+      "version": "stub-universe",
+      "maintainer": "support@YOURNAMEHERE.COM",
+      "description": "YOURNAMEHERE on DC/OS",
+      "selected": false,
+      "framework": true,
+      "tags": [
+        "nifi"
+      ],
+      "postInstallNotes": "DC/OS YOURNAMEHERE is being installed!\n\n\tDocumentation: http://YOURNAMEHERE.COM/DOCS\n\tIssues: http://YOURNAMEHERE.COM/SUPPORT",
+      "postUninstallNotes": "DC/OS YOURNAMEHERE is being uninstalled.",
+      "releaseVersion": 0,
+      "config": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "object",
+            "description": "DC/OS service configuration properties",
+            "properties": {
+              "name": {
+                "title": "Service name",
+                "description": "The name of the service instance",
+                "type": "string",
+                "default": "nifi"
+              },
+              "sleep": {
+                "description": "The sleep duration in seconds before tasks exit.",
+                "type": "number",
+                "default": 1000
+              },
+              "user": {
+                "title": "User",
+                "description": "The user that the service will run as.",
+                "type": "string",
+                "default": "root"
+              },
+              "service_account": {
+                "description": "The service account for DC/OS service authentication. This is typically left empty to use the default unless service authentication is needed. The value given here is passed as the principal of Mesos framework.",
+                "type": "string",
+                "default": ""
+              },
+              "virtual_network_enabled": {
+                "description": "Enable virtual networking",
+                "type": "boolean",
+                "default": false
+              },
+              "virtual_network_name": {
+                "description": "The name of the virtual network to join",
+                "type": "string",
+                "default": "dcos"
+              },
+              "virtual_network_plugin_labels": {
+                "description": "Labels to pass to the virtual network plugin. Comma-separated key:value pairs. For example: k_0:v_0,k_1:v_1,...,k_n:v_n",
+                "type": "string",
+                "default": ""
+              },
+              "service_account_secret": {
+                "title": "Credential secret name (optional)",
+                "description": "Name of the Secret Store credentials to use for DC/OS service authentication. This should be left empty unless service authentication is needed.",
+                "type": "string",
+                "default": ""
+              },
+              "log_level": {
+                "description": "The log level for the DC/OS service.",
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "FATAL",
+                  "ERROR",
+                  "WARN",
+                  "INFO",
+                  "DEBUG",
+                  "TRACE",
+                  "ALL"
+                ],
+                "default": "INFO"
+              }
+            },
+            "required": [
+              "name",
+              "sleep",
+              "user"
+            ]
+          },
+          "node": {
+            "description": "Template pod configuration properties",
+            "type": "object",
+            "properties": {
+              "count": {
+                "title": "Node count",
+                "description": "Number of Template pods to run",
+                "type": "integer",
+                "default": 1
+              },
+              "placement_constraint": {
+                "title": "Placement constraint",
+                "description": "Marathon-style placement constraint for nodes. Example: 'hostname:UNIQUE'",
+                "type": "string",
+                "default": ""
+              },
+              "cpus": {
+                "title": "CPU count",
+                "description": "Template pod CPU requirements",
+                "type": "number",
+                "default": 0.1
+              },
+              "mem": {
+                "title": "Memory size (MB)",
+                "description": "Template pod mem requirements (in MB)",
+                "type": "integer",
+                "default": 252
+              },
+              "disk": {
+                "title": "Disk size (MB)",
+                "description": "Template pod persistent disk requirements (in MB)",
+                "type": "integer",
+                "default": 25
+              },
+              "disk_type": {
+                "title": "Disk type [ROOT, MOUNT]",
+                "description": "Mount volumes require preconfiguration in DC/OS",
+                "enum": [
+                  "ROOT",
+                  "MOUNT"
+                ],
+                "default": "ROOT"
+              }
+            },
+            "required": [
+              "count",
+              "cpus",
+              "mem",
+              "disk",
+              "disk_type"
+            ]
+          }
+        }
+      },
+      "marathon": {
+        "v2AppMustacheTemplate": "ewogICJpZCI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAiY3B1cyI6IDEuMCwKICAibWVtIjogMTAyNCwKICAiaW5zdGFuY2VzIjogMSwKICAiY21kIjogImV4cG9ydCBMRF9MSUJSQVJZX1BBVEg9JE1FU09TX1NBTkRCT1gvbGlibWVzb3MtYnVuZGxlL2xpYjokTERfTElCUkFSWV9QQVRIOyBleHBvcnQgTUVTT1NfTkFUSVZFX0pBVkFfTElCUkFSWT0kKGxzICRNRVNPU19TQU5EQk9YL2xpYm1lc29zLWJ1bmRsZS9saWIvbGlibWVzb3MtKi5zbyk7IGV4cG9ydCBKQVZBX0hPTUU9JChscyAtZCAkTUVTT1NfU0FOREJPWC9qcmUqLyk7IGV4cG9ydCBKQVZBX0hPTUU9JHtKQVZBX0hPTUUlL307IGV4cG9ydCBQQVRIPSQobHMgLWQgJEpBVkFfSE9NRS9iaW4pOiRQQVRIICYmICBleHBvcnQgSkFWQV9PUFRTPVwiLVhtczI1Nk0gLVhteDUxMk0gLVhYOi1IZWFwRHVtcE9uT3V0T2ZNZW1vcnlFcnJvclwiICYmICAuL25pZmktc2NoZWR1bGVyL2Jpbi9uaWZpIC4vbmlmaS1zY2hlZHVsZXIvc3ZjLnltbCIsCiAgImxhYmVscyI6IHsKICAgICJEQ09TX0NPTU1PTlNfQVBJX1ZFUlNJT04iOiAidjEiLAogICAgIkRDT1NfQ09NTU9OU19VTklOU1RBTEwiOiAidHJ1ZSIsCiAgICAiRENPU19QQUNLQUdFX0ZSQU1FV09SS19OQU1FIjogInt7c2VydmljZS5uYW1lfX0iLAogICAgIk1BUkFUSE9OX1NJTkdMRV9JTlNUQU5DRV9BUFAiOiAidHJ1ZSIsCiAgICAiRENPU19TRVJWSUNFX05BTUUiOiAie3tzZXJ2aWNlLm5hbWV9fSIsCiAgICAiRENPU19TRVJWSUNFX1BPUlRfSU5ERVgiOiAiMCIsCiAgICAiRENPU19TRVJWSUNFX1NDSEVNRSI6ICJodHRwIgogIH0sCiAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAic2VjcmV0cyI6IHsKICAgICJzZXJ2aWNlQ3JlZGVudGlhbCI6IHsKICAgICAgInNvdXJjZSI6ICJ7e3NlcnZpY2Uuc2VydmljZV9hY2NvdW50X3NlY3JldH19IgogICAgfQogIH0sCiAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAiZW52IjogewogICAgIkZSQU1FV09SS19OQU1FIjogInt7c2VydmljZS5uYW1lfX0iLAogICAgIlNMRUVQX0RVUkFUSU9OIjogInt7c2VydmljZS5zbGVlcH19IiwKICAgICJGUkFNRVdPUktfVVNFUiI6ICJ7e3NlcnZpY2UudXNlcn19IiwKICAgICJGUkFNRVdPUktfUFJJTkNJUEFMIjogInt7c2VydmljZS5zZXJ2aWNlX2FjY291bnR9fSIsCiAgICAiRlJBTUVXT1JLX0xPR19MRVZFTCI6ICJ7e3NlcnZpY2UubG9nX2xldmVsfX0iLAoKICAgICJOT0RFX0NPVU5UIjogInt7bm9kZS5jb3VudH19IiwKICAgICJOT0RFX1BMQUNFTUVOVCI6ICJ7e25vZGUucGxhY2VtZW50X2NvbnN0cmFpbnR9fSIsCiAgICB7eyNzZXJ2aWNlLnZpcnR1YWxfbmV0d29ya19lbmFibGVkfX0KICAgICJFTkFCTEVfVklSVFVBTF9ORVRXT1JLIjogInllcyIsCiAgICAiVklSVFVBTF9ORVRXT1JLX05BTUUiOiAie3tzZXJ2aWNlLnZpcnR1YWxfbmV0d29ya19uYW1lfX0iLAogICAgIlZJUlRVQUxfTkVUV09SS19QTFVHSU5fTEFCRUxTIjogInt7c2VydmljZS52aXJ0dWFsX25ldHdvcmtfcGx1Z2luX2xhYmVsc319IiwKICAgIHt7L3NlcnZpY2UudmlydHVhbF9uZXR3b3JrX2VuYWJsZWR9fQogICAgIk5PREVfQ1BVUyI6ICJ7e25vZGUuY3B1c319IiwKICAgICJOT0RFX01FTSI6ICJ7e25vZGUubWVtfX0iLAogICAgIk5PREVfRElTSyI6ICJ7e25vZGUuZGlza319IiwKICAgICJOT0RFX0RJU0tfVFlQRSI6ICJ7e25vZGUuZGlza190eXBlfX0iLAoKICAgICJKQVZBX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmpyZS10YXItZ3p9fSIsCiAgICAiRVhFQ1VUT1JfVVJJIjogInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMuZXhlY3V0b3ItemlwfX0iLAogICAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgICJEQ09TX1NFUlZJQ0VfQUNDT1VOVF9DUkVERU5USUFMIjogeyAic2VjcmV0IjogInNlcnZpY2VDcmVkZW50aWFsIiB9LAogICAgIk1FU09TX01PRFVMRVMiOiAie1wibGlicmFyaWVzXCI6IFt7XCJmaWxlXCI6IFwibGliZGNvc19zZWN1cml0eS5zb1wiLCBcIm1vZHVsZXNcIjogW3tcIm5hbWVcIjogXCJjb21fbWVzb3NwaGVyZV9kY29zX0NsYXNzaWNSUENBdXRoZW50aWNhdGVlXCJ9XX1dfSIsCiAgICAiTUVTT1NfQVVUSEVOVElDQVRFRSI6ICJjb21fbWVzb3NwaGVyZV9kY29zX0NsYXNzaWNSUENBdXRoZW50aWNhdGVlIiwKICAgIHt7L3NlcnZpY2Uuc2VydmljZV9hY2NvdW50X3NlY3JldH19CiAgICAiTElCTUVTT1NfVVJJIjogInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMubGlibWVzb3MtYnVuZGxlLXRhci1nen19IgogIH0sCiAgInVyaXMiOiBbCiAgICAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5qcmUtdGFyLWd6fX0iLAogICAgInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMuc2NoZWR1bGVyLXppcH19IiwKICAgICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmxpYm1lc29zLWJ1bmRsZS10YXItZ3p9fSIKICBdLAogICJ1cGdyYWRlU3RyYXRlZ3kiOnsKICAgICJtaW5pbXVtSGVhbHRoQ2FwYWNpdHkiOiAwLAogICAgIm1heGltdW1PdmVyQ2FwYWNpdHkiOiAwCiAgfSwKICAiaGVhbHRoQ2hlY2tzIjogWwogICAgewogICAgICAicHJvdG9jb2wiOiAiSFRUUCIsCiAgICAgICJwYXRoIjogIi92MS9wbGFucy9kZXBsb3kiLAogICAgICAiZ3JhY2VQZXJpb2RTZWNvbmRzIjogOTAwLAogICAgICAiaW50ZXJ2YWxTZWNvbmRzIjogMzAsCiAgICAgICJwb3J0SW5kZXgiOiAwLAogICAgICAidGltZW91dFNlY29uZHMiOiAzMCwKICAgICAgIm1heENvbnNlY3V0aXZlRmFpbHVyZXMiOiAwCiAgICB9LAogICAgewogICAgICAicHJvdG9jb2wiOiAiSFRUUCIsCiAgICAgICJwYXRoIjogIi92MS9wbGFucy9yZWNvdmVyeSIsCiAgICAgICJncmFjZVBlcmlvZFNlY29uZHMiOiA5MDAsCiAgICAgICJpbnRlcnZhbFNlY29uZHMiOiAzMCwKICAgICAgInBvcnRJbmRleCI6IDAsCiAgICAgICJ0aW1lb3V0U2Vjb25kcyI6IDMwLAogICAgICAibWF4Q29uc2VjdXRpdmVGYWlsdXJlcyI6IDAKICAgIH0KICBdLAogICJwb3J0RGVmaW5pdGlvbnMiOiBbCiAgICB7CiAgICAgICJwb3J0IjogMCwKICAgICAgInByb3RvY29sIjogInRjcCIsCiAgICAgICJuYW1lIjogImFwaSIsCiAgICAgICJsYWJlbHMiOiB7ICJWSVBfMCI6ICIvYXBpLnt7c2VydmljZS5uYW1lfX06ODAiIH0KICAgIH0KICBdCn0K"
+      },
+      "resource": {
+        "assets": {
+          "uris": {
+            "jre-tar-gz": "https://downloads.mesosphere.com/java/jre-8u144-linux-x64.tar.gz",
+            "libmesos-bundle-tar-gz": "https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.10-1.4-63e0814.tar.gz",
+            "scheduler-zip": "http://10.88.89.149:8085/nifi-scheduler.zip",
+            "executor-zip": "http://10.88.89.149:8085/executor.zip"
+          }
+        },
+        "images": {
+          "icon-small": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-small.png?raw=true",
+          "icon-medium": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-medium.png?raw=true",
+          "icon-large": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-large.png?raw=true"
+        },
+        "cli": {
+          "binaries": {
+            "darwin": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "abcde5af8abed7be575c3176e9e969f810b6881062ae57dfef22bd4293083dbd"
+                  }
+                ],
+                "kind": "executable",
+                "url": "http://10.88.89.149:8085/dcos-service-cli-darwin"
+              }
+            },
+            "linux": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "f2a5d2b3cf951146892f083f8bfd093774d2d7e2c39ab6617840da30fb5638f1"
+                  }
+                ],
+                "kind": "executable",
+                "url": "http://10.88.89.149:8085/dcos-service-cli-linux"
+              }
+            },
+            "windows": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "742554c1b84c82e4e2fc0fa87e0a014dd4f00f768d58d007f7014f2b554097cd"
+                  }
+                ],
+                "kind": "executable",
+                "url": "http://10.88.89.149:8085/dcos-service-cli.exe"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
