@@ -152,11 +152,16 @@
       },
       "resource": {
         "assets": {
+          "container": {
+            "docker": {
+              "nifi": "{{nifi-image}}"
+            }
+          },
           "uris": {
             "jre-tar-gz": "https://downloads.mesosphere.com/java/jre-8u144-linux-x64.tar.gz",
             "libmesos-bundle-tar-gz": "https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.10-1.4-63e0814.tar.gz",
-            "scheduler-zip": "http://10.88.89.149:8085/nifi-scheduler.zip",
-            "executor-zip": "http://10.88.89.149:8085/executor.zip"
+            "scheduler-zip": "http://127.0.0.1:8085/nifi-scheduler.zip",
+            "executor-zip": "http://127.0.0.1:8085/executor.zip"
           }
         },
         "images": {
@@ -175,7 +180,7 @@
                   }
                 ],
                 "kind": "executable",
-                "url": "http://10.88.89.149:8085/dcos-service-cli-darwin"
+                "url": "http://127.0.0.1:8085/dcos-service-cli-darwin"
               }
             },
             "linux": {
@@ -187,7 +192,7 @@
                   }
                 ],
                 "kind": "executable",
-                "url": "http://10.88.89.149:8085/dcos-service-cli-linux"
+                "url": "http://127.0.0.1:8085/dcos-service-cli-linux"
               }
             },
             "windows": {
@@ -199,7 +204,7 @@
                   }
                 ],
                 "kind": "executable",
-                "url": "http://10.88.89.149:8085/dcos-service-cli.exe"
+                "url": "http://127.0.0.1:8085/dcos-service-cli.exe"
               }
             }
           }
